@@ -12,6 +12,7 @@ const postRouter = require("./routes/post");
 const authRouter = require("./routes/auth");
 const { authenticateJWT } = require("./middlewares/authenticateJWT");
 const adminRouter = require("./routes/admin");
+const userRouter = require("./routes/user");
 
 const app = express();
 
@@ -38,6 +39,7 @@ app.use("/post", postRouter);
 app.use("/", indexRouter);
 app.use("/auth", authRouter);
 app.use("/admin", adminRouter);
+app.use("/user", userRouter);
 
 // app.use("/users", usersRouter);
 

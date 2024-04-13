@@ -51,7 +51,7 @@ adminRouter.post(
       return res.send("Post not found");
     }
 
-    return res.redirect("/admin/posts");
+    return res.redirect("/post/myPosts");
   }
 );
 

@@ -1,51 +1,48 @@
-<%- include('../partials/header.ejs', {isLoggedIn: true, isAdmin: true}) %>
+<%- include('./partials/header.ejs', {isAdmin: true, isLoggedIn: true}) %>
 
 <div class="flex justify-between">
-  <form class="w-2/3 m-4" action="/admin/post/edit/<%= postId %>" method="POST">
-    <!-- Left Div: Edit Post -->
+  <form class="w-2/3 m-4" action="/user/edit/<%= userId %>" method="POST">
+    <!-- Left Div: Edit User -->
     <div class="w-full">
       <div class="bg-white rounded-lg shadow-md p-4">
-        <h2 class="text-lg font-semibold mb-4">Edit Post</h2>
+        <h2 class="text-lg font-semibold mb-4">Edit User</h2>
         <div class="mb-4">
-          <label class="block text-gray-700 text-sm font-bold mb-2" for="title">
-            Title
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
+            Name
           </label>
           <input
             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="title"
-            name="title"
+            id="name"
+            name="name"
             type="text"
-            placeholder="Enter title..."
-            value="<%= title || '' %>"
+            placeholder="Enter name..."
+            value="<%= name || '' %>"
           />
         </div>
         <div class="mb-4">
-          <label
-            class="block text-gray-700 text-sm font-bold mb-2"
-            for="content"
-          >
-            Content
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
+            Email
           </label>
-          <textarea
-            name="content"
+          <input
             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="content"
-            placeholder="Enter content..."
-          >
-<%= content || '' %></textarea
-          >
+            id="email"
+            name="email"
+            type="email"
+            placeholder="Enter email..."
+            value="<%= email || '' %>"
+          />
         </div>
         <div class="flex justify-end">
           <button
             type="submit"
             class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-2"
           >
-            Save Post
+            Save User
           </button>
         </div>
       </div>
     </div>
   </form>
-
-  <%- include('../partials/footer.ejs') %>
 </div>
+
+<%- include('./partials/footer.ejs') %>

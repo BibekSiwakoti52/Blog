@@ -1,0 +1,29 @@
+<%- include('./partials/header.ejs', {isAdmin: true, isLoggedIn: true}) %>
+
+<div class="flex justify-between">
+  <!-- Left Div: Edit User -->
+  <div class="w-full">
+    <div class="bg-white rounded-lg shadow-md p-4">
+      <h2 class="text-lg font-semibold mb-4">User</h2>
+      <% users.forEach(user => { %>
+      <div class="mb-3">
+        <p><%= user.name %></p>
+        <a href="/user/edit/<%= user._id %>"
+          ><button class="py-2 px-3 bg-blue-600 text-white rounded-md">
+            Edit user
+          </button></a
+        >
+        <button
+          onclick="deleteUser('<%= user._id %>')"
+          class="py-2 px-3 bg-red-600 text-white rounded-md"
+        >
+          Delete user
+        </button>
+      </div>
+      <% }); %>
+    </div>
+  </div>
+  <script src="/javascripts/script.js"></script>
+
+  <%- include('./partials/footer.ejs') %>
+</div>

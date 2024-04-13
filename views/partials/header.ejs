@@ -28,9 +28,15 @@
               >
               <% if (isAdmin) { %>
               <a
-                href="/admin/posts"
+                href="/user"
                 class="text-gray-800 hover:bg-yellow-500 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                >Admin Panel</a
+                >Users</a
+              >
+              <% } %> <% if (isLoggedIn) { %>
+              <a
+                href="/post/myPosts"
+                class="text-gray-800 hover:bg-yellow-500 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                >My Posts</a
               >
               <% } %> <% if (isLoggedIn) { %>
               <a
@@ -38,13 +44,19 @@
                 class="text-gray-800 hover:bg-yellow-500 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                 >Create Post</a
               >
-              <% } %>
-
+              <% } %> <% if (isLoggedIn) { %>
+              <a
+                href="/auth/logout"
+                class="text-gray-800 hover:bg-yellow-500 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                >Logout</a
+              >
+              <% } else { %>
               <a
                 href="/auth/login"
                 class="text-gray-800 hover:bg-yellow-500 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                 >Login</a
               >
+              <% } %>
             </div>
           </div>
         </div>

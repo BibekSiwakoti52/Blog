@@ -6,17 +6,29 @@ const postRouter = require("express").Router();
 
 postRouter.get("/all", optionalTokenParser, async function (req, res, next) {
   const posts = await Posts.find();
+  const isLoggedIn = !!req.user;
   const isAdmin = !!req.user?.isAdmin;
-  const isLoggedin = !!req.user;
-  res.render("myPosts", { posts, isAdmin, isLoggedin });
+
+  res.render("myPosts", { posts, isLoggedIn, private: false, isAdmin });
 });
 
 postRouter.get("/myPosts", authenticateJWT, async function (req, res, next) {
   const userId = req.user.id;
   const isAdmin = req.user?.isAdmin;
 
-  const posts = await Posts.find({ user: userId });
-  res.render("myPosts", { posts, isAdmin });
+  let posts = [];
+  if (isAdmin) {
+    posts = await Posts.find();
+  } else {
+    posts = await Posts.find({ user: userId });
+  }
+
+  res.render("myPosts", {
+    posts,
+    private: true,
+    isLoggedIn: true,
+    isAdmin,
+  });
 });
 
 postRouter.get("/create", authenticateJWT, function (req, res, next) {
