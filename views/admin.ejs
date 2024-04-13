@@ -1,0 +1,58 @@
+<%include ./partials/header %>
+<div class="flex justify-between">
+    <!-- Left Div: Edit Post -->
+    <div class="w-2/3 mr-4">
+      <div class="bg-white rounded-lg shadow-md p-4">
+        <h2 class="text-lg font-semibold mb-4">Edit Post</h2>
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="title">
+            Title
+          </label>
+          <input
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="title" type="text" placeholder="Enter title..." />
+        </div>
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="content">
+            Content
+          </label>
+          <textarea
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="content" placeholder="Enter content..."></textarea>
+        </div>
+        <div class="flex justify-end">
+          <button
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-2">
+            Edit Post
+          </button>
+          <button
+            class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            Delete Post
+          </button>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Right Div: Other Options -->
+    <div class="w-1/3">
+      <div class="bg-white rounded-lg shadow-md p-4">
+        <h2 class="text-lg font-semibold mb-4">Other Options</h2>
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="category">
+            Category
+          </label>
+          <select
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="category">
+            <option>Category 1</option>
+            <option>Category 2</option>
+            <option>Category 3</option>
+          </select>
+        </div>
+        <!-- Add more options here as needed -->
+      </div>
+    </div>
+  </div>
+  
+
+<% include ./partials/footer %>
