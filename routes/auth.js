@@ -24,16 +24,16 @@ authRouter.post("/login", async function (req, res, next) {
   if (!isValid) {
     return res.send("Incorrect password");
   }
-
-  const posts = await Posts.find({ user: user._id });
-
-  const token = jwt.sign({ id: user._id, email }, process.env.JWT_SECRET);
+  const token = jwt.sign(
+    { id: user._id, email, isAdmin: user.isAdmin },
+    process.env.JWT_SECRET
+  );
 
   // save token in browsers cookie
   // httpOnly prevents the cookie to be accessed by javascript
   res.cookie("jwt", token, { httpOnly: true });
 
-  return res.render("myPosts", { posts });
+  return res.redirect("/post/all");
 });
 
 authRouter.get("/register", function (req, res, next) {

@@ -1,0 +1,49 @@
+<%- include('../partials/header.ejs', {isAdmin, isLoggedIn: true}) %>
+
+<div class="flex justify-between">
+  <form class="w-2/3 m-4" action="/admin/post/edit/<%= postId %>" method="POST">
+    <!-- Left Div: Edit Post -->
+    <div class="w-full">
+      <div class="bg-white rounded-lg shadow-md p-4">
+        <h2 class="text-lg font-semibold mb-4">Edit Post</h2>
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="title">
+            Title
+          </label>
+          <input
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="title"
+            name="title"
+            type="text"
+            placeholder="Enter title..."
+            value="<%= title || '' %>"
+          />
+        </div>
+        <div class="mb-4">
+          <label
+            class="block text-gray-700 text-sm font-bold mb-2"
+            for="content"
+          >
+            Content
+          </label>
+          <textarea
+            name="content"
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="content"
+            placeholder="Enter content..."
+          ><%= content || '' %></textarea>
+        </div>
+        <div class="flex justify-end">
+          <button
+            type="submit"
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-2"
+          >
+            Save Post
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <%- include('../partials/footer.ejs') %>
+</div>

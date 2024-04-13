@@ -1,4 +1,4 @@
-<%include ./partials/header isAdmin=true %>
+<%- include('./partials/header.ejs', {isAdmin, isLoggedIn: true}) %>
 
 <!--  div below nav -->
 
@@ -21,4 +21,4 @@
   </div>
 </div>
 
-<% include ./partials/footer %>
+<%- include('./partials/footer.ejs') %>

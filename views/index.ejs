@@ -1,4 +1,4 @@
-<%include (./partials/header) %>
+<%- include('./partials/header.ejs', {isAdmin}) %>
 <!--  div below nav -->
 
 <!-- flex-1 takes the all the remaning vetrical space from the div thats not occupied -->
@@ -20,4 +20,4 @@
   </div>
 </div>
 
-<% include ./partials/footer %>
+<%- include('./partials/footer.ejs') %>

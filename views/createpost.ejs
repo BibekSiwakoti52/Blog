@@ -1,4 +1,4 @@
-<% include ./partials/header.ejs %>
+<%- include('./partials/header.ejs', {isAdmin, isLoggedIn: true}) %>
 
 <div class="bg-gray-100 p-4">
   <div class="max-w-2xl mx-auto bg-white p-8 rounded-md shadow-md">
@@ -38,4 +38,4 @@
   </div>
 </div>
 
-<% include ./partials/footer.ejs %>
+<%- include('./partials/footer.ejs') %>
