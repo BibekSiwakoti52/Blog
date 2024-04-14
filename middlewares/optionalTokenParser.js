@@ -6,10 +6,14 @@ const optionalTokenParser = (req, res, next) => {
   if (token) {
     jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
       if (err) {
-        next();
+        if ((err.name = "TokenExpiredError")) {
+          return res.redirect("/auth/login");
+        }
+        console.log(err);
+        return next();
       }
       req.user = user;
-      next();
+      return next();
     });
   } else {
     next();

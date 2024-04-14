@@ -26,7 +26,10 @@ authRouter.post("/login", async function (req, res, next) {
     return res.send("Incorrect password");
   }
   const token = jwt.sign(
-    { id: user._id, email, isAdmin: user.isAdmin },
+    {
+      exp: Math.floor(Date.now() / 1000) + 60 * 10, // 10 minutes
+      data: { id: user._id, email, isAdmin: user.isAdmin },
+    },
     process.env.JWT_SECRET
   );
 
