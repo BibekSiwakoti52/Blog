@@ -1,0 +1,16 @@
+<%- include('./partials/header.ejs', {isLoggedIn, isAdmin}) %>
+
+<div class="container mx-auto mt-8">
+  <div class="bg-white p-8 rounded-lg shadow-md">
+    <h1 class="text-3xl font-bold mb-4"><%= post.title %></h1>
+    <p class="text-gray-600 mb-4"><%= post.createdAt %></p>
+    <!-- <img
+      src="https://via.placeholder.com/800x400"
+      alt="Post Image"
+      class="mb-4 rounded-lg"
+    /> -->
+    <p class="text-gray-800 leading-relaxed mb-6"><%= post.content %></p>
+  </div>
+</div>
+
+<%- include('./partials/footer.ejs') %>

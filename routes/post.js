@@ -47,4 +47,17 @@ postRouter.post("/", authenticateJWT, async function (req, res, next) {
   res.redirect("/post/myPosts");
 });
 
+postRouter.get("/:id", optionalTokenParser, async function (req, res, next) {
+  const postId = req.params.id;
+  const isLoggedIn = !!req.user;
+  const isAdmin = !!req.user?.isAdmin;
+
+  const post = await Posts.findById(postId);
+  if (!postId) {
+    return res.send("Post details not found");
+  }
+
+  return res.render("postDetail", { post, isAdmin, isLoggedIn });
+});
+
 module.exports = postRouter;

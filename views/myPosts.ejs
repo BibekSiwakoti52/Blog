@@ -13,7 +13,7 @@
       <% posts.forEach(post => { %>
       <div class="mb-6">
         <a
-          href="#"
+          href="/post/<%= post._id %>"
           class="block mb-2 text-xl font-bold text-blue-700 hover:text-blue-900"
           ><%= post.title %></a
         >
@@ -37,6 +37,7 @@
           <% } %>
         </div>
       </div>
+
       <% }); %>
     </div>
   </div>
