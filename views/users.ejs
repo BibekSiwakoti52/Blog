@@ -5,6 +5,11 @@
   <div class="w-full">
     <div class="bg-white rounded-lg shadow-md p-4">
       <h2 class="text-lg font-semibold mb-4">User</h2>
+      <a href="/user/create"
+        ><button class="py-2 px-3 bg-blue-600 text-white rounded-md">
+          Create user
+        </button></a
+      >
       <% users.forEach(user => { %>
       <div class="mb-3">
         <p><%= user.name %></p>

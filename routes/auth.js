@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 
 const User = require("../models/users");
 const Posts = require("../models/post");
+const { SaltRounds } = require("../lib/constants");
 const authRouter = express.Router();
 
 authRouter.get("/login", function (req, res, next) {
@@ -46,12 +47,10 @@ authRouter.get("/register", function (req, res, next) {
 });
 
 //what this does is bcrypt will perform 2^12 (4096) iterations of the hashing algorithm to generate the salt
-const saltRounds = 12; 
 authRouter.post("/register", async function (req, res, next) {
   try {
     const body = req.body;
-    const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
-    console.log(hashedPassword);
+    const hashedPassword = await bcrypt.hash(req.body.password, SaltRounds);
 
     // save the username and password in the database
     const newUser = await User.create({

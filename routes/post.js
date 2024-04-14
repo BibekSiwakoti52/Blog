@@ -52,7 +52,7 @@ postRouter.get("/:id", optionalTokenParser, async function (req, res, next) {
   const isLoggedIn = !!req.user;
   const isAdmin = !!req.user?.isAdmin;
 
-  const post = await Posts.findById(postId);
+  const post = await Posts.findById(postId).populate("user");
   if (!postId) {
     return res.send("Post details not found");
   }

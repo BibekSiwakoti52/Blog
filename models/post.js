@@ -13,13 +13,13 @@ const postSchema = new Schema(
     },
     user: {
       type: mongoose.Types.ObjectId,
-      required: true
-    }
+      ref: "User",
+      required: true,
+    },
   },
   // adds createdAt and updatedAt fields by default
   { timestamps: true }
 );
 
-
 const Posts = mongoose.model("Post", postSchema);
-module.exports = Posts
+module.exports = Posts;

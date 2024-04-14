@@ -1,6 +1,8 @@
+const { SaltRounds } = require("../lib/constants");
 const { authenticateJWT } = require("../middlewares/authenticateJWT");
 const { validateRole } = require("../middlewares/validateRole");
 const User = require("../models/users");
+const bcrypt = require("bcrypt");
 
 const userRouter = require("express").Router();
 
@@ -9,9 +11,36 @@ userRouter.get(
   authenticateJWT,
   validateRole,
   async function (req, res, next) {
-    const users = await User.find();
+    const users = await User.find().sort("-createdAt");
 
     return res.render("users", { users });
+  }
+);
+
+userRouter.get(
+  "/create",
+  authenticateJWT,
+  validateRole,
+  function (req, res, next) {
+    return res.render("createUser");
+  }
+);
+
+userRouter.post(
+  "/",
+  authenticateJWT,
+  validateRole,
+  async function (req, res, next) {
+    const hashedPassword = await bcrypt.hash(req.body.password, SaltRounds);
+
+    // save the username and password in the database
+    const newUser = await User.create({
+      // send every value from request body to mongoose model
+      ...req.body,
+      password: hashedPassword,
+    });
+
+    res.redirect("/user");
   }
 );
 
