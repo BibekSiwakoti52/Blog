@@ -1,32 +1,15 @@
-<%- include('./partials/header.ejs', {isLoggedIn: true, isAdmin}) %>
+<%- include('./partials/header.ejs', { isLoggedIn: true, isAdmin }) %>
 
-<div class="mt-8">
-  <h2 class="text-xl font-bold mb-4">Edit Comment</h2>
-  <form
-    action="/post/comment/edit/<%= comment._id %>"
-    method="POST"
-    class="mb-4"
-  >
-    <div class="mb-4">
-      <label for="comment" class="block text-gray-700 font-bold mb-2"
-        >Comment</label
-      >
-      <textarea
-        id="comment"
-        name="comment"
-        rows="4"
-        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-      >
-      <%= comment.comment %>
-    </textarea
-      >
+<div class="mt-8 max-w-lg mx-auto bg-white p-8 rounded-lg shadow-md">
+  <h2 class="text-3xl font-bold mb-6 text-center">Edit Comment</h2>
+  <form action="/post/comment/edit/<%= comment._id %>" method="POST">
+    <div class="mb-6">
+      <label for="comment" class="block text-gray-700 font-bold mb-2">Edit Comment</label>
+      <textarea id="comment" name="comment" rows="6" class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Edit your comment..." required><%= comment.comment %></textarea>
     </div>
-    <button
-      type="submit"
-      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-    >
-      Submit
-    </button>
+    <div class="flex justify-center">
+      <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded focus:outline-none focus:shadow-outline">Submit</button>
+    </div>
   </form>
 </div>
 

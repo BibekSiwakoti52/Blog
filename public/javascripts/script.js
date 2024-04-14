@@ -1,5 +1,5 @@
 function deleteRecord(postId) {
-  fetch(`/admin/post/${postId}`, {
+  fetch(`/post/${postId}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",

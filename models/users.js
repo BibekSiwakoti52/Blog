@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-mongoose.connect("mongodb://localhost:27017/assignment03");
+mongoose.connect(process.env.MONGODB_URI);
 
 const userSchema = new Schema(
   {

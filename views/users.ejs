@@ -4,31 +4,39 @@
   <!-- Left Div: Edit User -->
   <div class="w-full">
     <div class="bg-white rounded-lg shadow-md p-4">
-      <h2 class="text-lg font-semibold mb-4">User</h2>
+      <h2 class="text-lg font-semibold mb-4">User Management</h2>
       <a href="/user/create"
-        ><button class="py-2 px-3 bg-blue-600 text-white rounded-md">
-          Create user
+        ><button
+          class="mb-5 py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
+        >
+          Create User
         </button></a
       >
       <% users.forEach(user => { %>
-      <div class="mb-3">
-        <p><%= user.name %></p>
-        <a href="/user/edit/<%= user._id %>"
-          ><button class="py-2 px-3 bg-blue-600 text-white rounded-md">
-            Edit user
-          </button></a
-        >
-        <button
-          onclick="deleteUser('<%= user._id %>')"
-          class="py-2 px-3 bg-red-600 text-white rounded-md"
-        >
-          Delete user
-        </button>
+      <div
+        class="flex items-center justify-between bg-gray-100 rounded-md p-3 mb-3"
+      >
+        <p class="text-lg font-medium"><%= user.name %></p>
+        <div class="flex space-x-2">
+          <a href="/user/edit/<%= user?._id %>"
+            ><button
+              class="py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
+            >
+              Edit
+            </button></a
+          >
+          <button
+            onclick="deleteUser('<%= user?._id %>')"
+            class="py-2 px-4 bg-red-600 text-white rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-opacity-50"
+          >
+            Delete
+          </button>
+        </div>
       </div>
       <% }); %>
     </div>
   </div>
   <script src="/javascripts/script.js"></script>
-
-  <%- include('./partials/footer.ejs') %>
 </div>
+
+<%- include('./partials/footer.ejs') %>

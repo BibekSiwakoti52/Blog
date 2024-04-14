@@ -37,6 +37,50 @@ postRouter.get("/myPosts", authenticateJWT, async function (req, res, next) {
   });
 });
 
+postRouter.get("/edit/:id", authenticateJWT, async function (req, res, next) {
+  const id = req.params.id;
+  if (!id) {
+    return res.send("Post id is required");
+  }
+
+  const post = await Posts.findById(id);
+  if (!post) {
+    return res.send("Post not found");
+  }
+
+  return res.render("editPost", {
+    isAdmin: true,
+    title: post.title,
+    content: post.content,
+    postId: post._id,
+  });
+});
+
+postRouter.post("/edit/:id", authenticateJWT, async function (req, res, next) {
+  const id = req.params.id;
+
+  const post = await Posts.findByIdAndUpdate(id, req.body);
+  if (!post) {
+    return res.send("Post not found");
+  }
+
+  return res.redirect("/post/myPosts");
+});
+
+postRouter.delete("/:id", authenticateJWT, async function (req, res, next) {
+  const postId = req.params.id;
+
+  if (!postId) {
+    return res.send("Post id not found");
+  }
+
+  const post = await Posts.findByIdAndDelete(postId);
+
+  res.status(200).json({
+    message: "Successfully deleted post",
+  });
+});
+
 postRouter.get("/create", authenticateJWT, function (req, res, next) {
   const isAdmin = req.user?.isAdmin;
 

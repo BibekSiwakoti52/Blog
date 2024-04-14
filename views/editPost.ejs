@@ -1,7 +1,7 @@
-<%- include('../partials/header.ejs', {isLoggedIn: true, isAdmin: true}) %>
+<%- include('./partials/header.ejs', {isLoggedIn: true, isAdmin: true}) %>
 
 <div class="flex justify-between">
-  <form class="w-2/3 m-4" action="/admin/post/edit/<%= postId %>" method="POST">
+  <form class="w-2/3 m-4" action="/post/edit/<%= postId %>" method="POST">
     <!-- Left Div: Edit Post -->
     <div class="w-full">
       <div class="bg-white rounded-lg shadow-md p-4">
@@ -47,5 +47,5 @@
     </div>
   </form>
 
-  <%- include('../partials/footer.ejs') %>
+  <%- include('./partials/footer.ejs') %>
 </div>
