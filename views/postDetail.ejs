@@ -12,7 +12,61 @@
       class="mb-4 rounded-lg"
     /> -->
     <p class="text-gray-800 leading-relaxed mb-6"><%= post.content %></p>
+
+    <!-- Comment Form -->
+    <div class="mt-8">
+      <h2 class="text-xl font-bold mb-4">Leave a Comment</h2>
+      <form action="/post/<%= post.id %>/comment" method="POST" class="mb-4">
+        <div class="mb-4">
+          <label for="comment" class="block text-gray-700 font-bold mb-2"
+            >Comment</label
+          >
+          <textarea
+            id="comment"
+            name="comment"
+            rows="4"
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          ></textarea>
+        </div>
+        <button
+          type="submit"
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        >
+          Submit
+        </button>
+      </form>
+    </div>
+
+    <!-- Comments Section -->
+    <div class="mt-8">
+      <h2 class="text-xl font-bold mb-4">Comments</h2>
+      <% if (comments.length > 0) { %>
+      <div class="divide-y divide-gray-200">
+        <% comments.forEach(comment => { %>
+        <div class="py-4">
+          <p class="text-gray-700"><%= comment.comment %></p>
+          <p class="text-gray-700"><%= comment.user.name %></p>
+          <% if (comment.user._id.equals(userId)) { %>
+          <button
+            onclick="deleteComment('<%= comment._id %>')"
+            class="bg-red-700 px-2 py-1 text-white"
+          >
+            Delete
+          </button>
+          <a href="/post/comment/edit/<%= comment._id %>">
+            <button class="bg-blue-700 px-2 py-1 text-white">Edit</button>
+          </a>
+
+          <% } %>
+        </div>
+        <% }) %>
+      </div>
+      <% } else { %>
+      <p class="text-gray-700">No comments yet.</p>
+      <% } %>
+    </div>
   </div>
+  <script src="/javascripts/script.js"></script>
 </div>
 
 <%- include('./partials/footer.ejs') %>

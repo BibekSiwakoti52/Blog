@@ -4,15 +4,15 @@ const jwt = require("jsonwebtoken");
 const optionalTokenParser = (req, res, next) => {
   const token = req.cookies.jwt;
   if (token) {
-    jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+    jwt.verify(token, process.env.JWT_SECRET, (err, data) => {
       if (err) {
         if ((err.name = "TokenExpiredError")) {
           return res.redirect("/auth/login");
         }
-        console.log(err);
         return next();
       }
-      req.user = user;
+      console.log("test");
+      req.user = data.data;
       return next();
     });
   } else {
