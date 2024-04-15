@@ -10,7 +10,7 @@ const postRouter = require("express").Router();
 postRouter.get("/all", optionalTokenParser, async function (req, res, next) {
   try {
         // Fetch all posts from the database
-    const posts = await Posts.find();
+    const posts = await Posts.find().sort("-createdAt");
 
     // Check if user is logged in by verifying the existence of req.user
     const isLoggedIn = !!req.user; 
