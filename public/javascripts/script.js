@@ -1,14 +1,18 @@
+// Function to delete a post record
 function deleteRecord(postId) {
-  fetch(`/post/${postId}`, {
-    method: "DELETE",
+
+  // Sending a DELETE request to the server to delete the post
+fetch(`/post/${postId}`, {
+    method: "DELETE", // HTTP method = DELETE
     headers: {
-      "Content-Type": "application/json",
+      "Content-Type": "application/json", // Specifying JSON content type
     },
   })
     .then((response) => {
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
+      // Reloading the page after successful deletion
       window.location.reload();
     })
     .catch((error) => {
@@ -16,6 +20,7 @@ function deleteRecord(postId) {
     });
 }
 
+//function to delete user
 function deleteUser(userId) {
   fetch(`/user/${userId}`, {
     method: "DELETE",
@@ -33,6 +38,8 @@ function deleteUser(userId) {
       console.error("Error deleting user:", error);
     });
 }
+
+//function to delete comment
 
 function deleteComment(commentId) {
   fetch(`/post/comment/${commentId}`, {

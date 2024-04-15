@@ -1,15 +1,16 @@
 <%- include('./partials/header.ejs', {isLoggedIn, isAdmin}) %>
+<!-- only show the page if the user is logged in and is an admin -->
+
 
 <div class="container mx-auto mt-8">
   <div class="bg-white p-8 rounded-lg shadow-md">
     <h1 class="text-3xl font-bold mb-4"><%= post.title %></h1>
     <p class="text-gray-600 mb-4">
-      Published on <%= new Date(post.createdAt).toLocaleDateString() %> by <%=
-      post.user?.name %>
+      Published on <%= new Date(post.createdAt).toLocaleDateString() %> by <%= 
+      post.user?.name %>  <%# Shows the Author and leave as blank if empty instead of error and shows date and show the date in dd/mm/yyyy format %>
     </p>
     <p class="text-gray-800 leading-relaxed mb-6"><%= post.content %></p>
 
-    <!-- Comment Form -->
     <div class="mt-8">
       <h2 class="text-xl font-bold mb-4">Leave a Comment</h2>
       <form action="/post/<%= post.id %>/comment" method="POST" class="mb-4">
@@ -40,12 +41,12 @@
       <div class="divide-y divide-gray-200">
         <% comments.forEach(comment => { %>
         <div class="py-4">
-          <p class="text-gray-700"><%= comment.comment %></p>
+          <p class="text-gray-700"><%= comment.comment %></p> 
           <p class="text-gray-600 text-sm">
             Commented by <%= comment.user?.name || "-" %> on <%= new
-            Date(comment.createdAt).toLocaleDateString() %>
+            Date(comment.createdAt).toLocaleDateString() %> 
           </p>
-          <% if (comment.user?._id.equals(userId)) { %>
+          <% if (comment.user?._id.equals(userId)) { %> <%# Check if the current user is the author of the comment  %>
           <div class="mt-2">
             <button
               onclick="deleteComment('<%= comment._id %>')"

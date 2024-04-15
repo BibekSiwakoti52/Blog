@@ -7,6 +7,7 @@ const posts = require("../models/post");
 const Posts = require("../models/post");
 const { authenticateJWT } = require("../middlewares/authenticateJWT");
 
+//renders the home page 
 router.get("/", function (req, res, next) {
   res.redirect("/post/all");
 });

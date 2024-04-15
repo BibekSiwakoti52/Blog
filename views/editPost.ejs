@@ -1,8 +1,8 @@
-<%- include('./partials/header.ejs', {isLoggedIn: true, isAdmin: true}) %>
+<%- include('./partials/header.ejs', {isLoggedIn: true, isAdmin: true}) %>  <!--  only show page if is admin is true and isloggedin is true -->
 
 <div class="flex justify-between">
   <form class="w-2/3 m-4" action="/post/edit/<%= postId %>" method="POST">
-    <!-- Left Div: Edit Post -->
+    <!-- The action URL changes based on the post's ID -->
     <div class="w-full">
       <div class="bg-white rounded-lg shadow-md p-4">
         <h2 class="text-lg font-semibold mb-4">Edit Post</h2>
@@ -16,7 +16,8 @@
             name="title"
             type="text"
             placeholder="Enter title..."
-            value="<%= title || '' %>"
+            value="<%= title || '' %>" <%# The value attribute is populated with the title of the post, 
+            or an empty string if the title is not provided (for new posts). %>
           />
         </div>
         <div class="mb-4">
@@ -46,6 +47,6 @@
       </div>
     </div>
   </form>
-
-  <%- include('./partials/footer.ejs') %>
 </div>
+
+<%- include('./partials/footer.ejs') %>

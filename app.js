@@ -20,15 +20,6 @@ const app = express();
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
-// app.use(
-//   expressSession({
-//     resave: false,
-//     saveUninitialized: false,
-//     // access local environment variables
-//     secret: process.env.SESSION_SECRET,
-//   })
-// );
-
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -41,7 +32,6 @@ app.use("/auth", authRouter);
 app.use("/admin", adminRouter);
 app.use("/user", userRouter);
 
-// app.use("/users", usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

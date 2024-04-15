@@ -1,17 +1,20 @@
 const jwt = require("jsonwebtoken");
 
-// Middleware to verify JWT token
+// Middleware function to optionally parse JWT token
 const optionalTokenParser = (req, res, next) => {
   const token = req.cookies.jwt;
+
   if (token) {
     jwt.verify(token, process.env.JWT_SECRET, (err, data) => {
+
       if (err) {
-        if ((err.name = "TokenExpiredError")) {
+
+        // Redirect to login if token is expired
+        if (err.name === "TokenExpiredError") {
           return res.redirect("/auth/login");
         }
         return next();
       }
-      console.log("test");
       req.user = data.data;
       return next();
     });
@@ -20,4 +23,5 @@ const optionalTokenParser = (req, res, next) => {
   }
 };
 
+// Exporting the middleware function for use in other parts of the application
 module.exports = { optionalTokenParser };

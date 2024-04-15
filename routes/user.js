@@ -6,6 +6,7 @@ const bcrypt = require("bcrypt");
 
 const userRouter = require("express").Router();
 
+// Route to fetch all users
 userRouter.get(
   "/",
   authenticateJWT,
@@ -26,11 +27,14 @@ userRouter.get(
   }
 );
 
+
+// Route to handle user creation
 userRouter.post(
   "/",
   authenticateJWT,
   validateRole,
   async function (req, res, next) {
+      // Hash the password using bcrypt
     const hashedPassword = await bcrypt.hash(req.body.password, SaltRounds);
 
     // save the username and password in the database
@@ -44,6 +48,7 @@ userRouter.post(
   }
 );
 
+// Route to render the edit user form
 userRouter.get(
   "/edit/:id",
   authenticateJWT,
@@ -56,6 +61,7 @@ userRouter.get(
       return res.send("User not found");
     }
 
+      // Render the 'editUser' view with the found user data
     return res.render("editUser", {
       name: user.name,
       email: user.email,
@@ -64,6 +70,7 @@ userRouter.get(
   }
 );
 
+// Route to delete a user
 userRouter.delete(
   "/:id",
   authenticateJWT,
@@ -79,6 +86,7 @@ userRouter.delete(
   }
 );
 
+// Route to update user details
 userRouter.post(
   "/edit/:id",
   authenticateJWT,
@@ -86,6 +94,7 @@ userRouter.post(
   async function (req, res, next) {
     const userId = req.params.id;
 
+      // Find the user by ID and update its details with the data from the request body
     const newUser = await User.findByIdAndUpdate(userId, req.body);
 
     if (!newUser) {

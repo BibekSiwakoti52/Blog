@@ -8,11 +8,13 @@ const commentSchema = new Schema(
       required: true,
     },
     post: {
-      type: mongoose.Schema.Types.ObjectId, //Gets the id from a specific code which comment is being made
+      //Gets the id from a specific post which comment is being made
+      type: mongoose.Schema.Types.ObjectId, 
       ref: "Post",
       required: true,
     },
     user: {
+      //Gets the id of the user who is commenting
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,

@@ -15,7 +15,7 @@ const userSchema = new Schema(
     },
     password: {
       type: String,
-      required: true, //TODO: add validation for password length, minLength = 10;
+      required: true,
     },
     isAdmin: {
       type: Boolean,

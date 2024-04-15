@@ -1,4 +1,4 @@
-<%- include('./partials/header.ejs', {isAdmin: true, isLoggedIn: true}) %>
+<%- include('./partials/header.ejs', {isAdmin: true, isLoggedIn: true}) %> <!--  only show page if is admin is true and isloggedin is true -->
 
 <div class="flex justify-between">
   <form class="w-2/3 m-4" action="/user/edit/<%= userId %>" method="POST">
@@ -25,7 +25,8 @@
             name="email"
             type="email"
             placeholder="Enter email..."
-            value="<%= email || '' %>"
+            value="<%= email || '' %>" <%# Populates email field if email exists, otherwise leaves it blank %>
+
           />
         </div>
         <div class="flex justify-end">
