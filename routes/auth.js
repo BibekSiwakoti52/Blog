@@ -25,12 +25,12 @@ authRouter.post("/login", async function (req, res, next) {
     return res.send("User not found");
   }
 
-    // Compare the provided password with the hashed password stored in the database
-  const isValid = await bcrypt.compare(password, user.password); 
+  // Compare the provided password with the hashed password stored in the database
+  const isValid = await bcrypt.compare(password, user.password);
   if (!isValid) {
     return res.send("Incorrect password");
   }
-    // Generate JWT token containing user information
+  // Generate JWT token containing user information
   const token = jwt.sign(
     {
       exp: Math.floor(Date.now() / 1000) + 60 * 10, // Token expires in 10 minutes
@@ -47,7 +47,7 @@ authRouter.post("/login", async function (req, res, next) {
 });
 
 authRouter.get("/logout", async function (req, res, next) {
-    // Clear the JWT cookie from the browser
+  // Clear the JWT cookie from the browser
   res.clearCookie("jwt");
   return res.redirect("/auth/login");
 });
@@ -60,7 +60,7 @@ authRouter.get("/register", function (req, res, next) {
 authRouter.post("/register", async function (req, res, next) {
   try {
     const body = req.body;
-        // Hash the password using bcrypt
+    // Hash the password using bcrypt
     const hashedPassword = await bcrypt.hash(req.body.password, SaltRounds);
 
     // save the username and password in the database

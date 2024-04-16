@@ -27,14 +27,13 @@ userRouter.get(
   }
 );
 
-
 // Route to handle user creation
 userRouter.post(
   "/",
   authenticateJWT,
   validateRole,
   async function (req, res, next) {
-      // Hash the password using bcrypt
+    // Hash the password using bcrypt
     const hashedPassword = await bcrypt.hash(req.body.password, SaltRounds);
 
     // save the username and password in the database
@@ -61,7 +60,7 @@ userRouter.get(
       return res.send("User not found");
     }
 
-      // Render the 'editUser' view with the found user data
+    // Render the 'editUser' view with the found user data
     return res.render("editUser", {
       name: user.name,
       email: user.email,
@@ -94,7 +93,7 @@ userRouter.post(
   async function (req, res, next) {
     const userId = req.params.id;
 
-      // Find the user by ID and update its details with the data from the request body
+    // Find the user by ID and update its details with the data from the request body
     const newUser = await User.findByIdAndUpdate(userId, req.body);
 
     if (!newUser) {
