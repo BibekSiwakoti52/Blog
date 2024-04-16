@@ -2,7 +2,7 @@ const { SaltRounds } = require("../lib/constants");
 const { authenticateJWT } = require("../middlewares/authenticateJWT");
 const { validateRole } = require("../middlewares/validateRole");
 const User = require("../models/users");
-const bcrypt = require("bcryptjs");
+const bcrypt = require("bcrypt");
 
 const userRouter = require("express").Router();
 

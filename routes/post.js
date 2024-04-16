@@ -5,20 +5,19 @@ const Posts = require("../models/post");
 
 const postRouter = require("express").Router();
 
-
 // Route to get all posts (public or private)
 postRouter.get("/all", optionalTokenParser, async function (req, res, next) {
   try {
-        // Fetch all posts from the database
+    // Fetch all posts from the database
     const posts = await Posts.find().sort("-createdAt");
 
     // Check if user is logged in by verifying the existence of req.user
-    const isLoggedIn = !!req.user; 
+    const isLoggedIn = !!req.user;
 
-        // Check if the logged-in user is an admin by verifying req.user.isAdmin
-    const isAdmin = !!req.user?.isAdmin; 
+    // Check if the logged-in user is an admin by verifying req.user.isAdmin
+    const isAdmin = !!req.user?.isAdmin;
 
-        // Render the 'myPosts' view with the fetched posts data along with user authentication status
+    // Render the 'myPosts' view with the fetched posts data along with user authentication status
     res.render("myPosts", { posts, isLoggedIn, private: false, isAdmin });
   } catch (err) {
     console.log(err);
@@ -28,16 +27,16 @@ postRouter.get("/all", optionalTokenParser, async function (req, res, next) {
 
 // Route to fetch posts created by the logged-in user or all posts if the user is an admin
 postRouter.get("/myPosts", authenticateJWT, async function (req, res, next) {
-    // Extract user ID from the authenticated request
-  const userId = req.user.id;
-    // Check if the authenticated user is an admin
+  // Extract user ID from the authenticated request
+  const userId = req.user?.id;
+  // Check if the authenticated user is an admin
   const isAdmin = req.user?.isAdmin;
 
   let posts = [];
   if (isAdmin) {
-      // If the user is an admin, fetch all posts
+    // If the user is an admin, fetch all posts
     posts = await Posts.find();
-  } else {    
+  } else {
     // If the user is not an admin, fetch posts created by the requeted user
     posts = await Posts.find({ user: userId });
   }
@@ -45,7 +44,7 @@ postRouter.get("/myPosts", authenticateJWT, async function (req, res, next) {
   res.render("myPosts", {
     posts,
     private: true, // Indicates that these posts are private to the logged-in user
-    isLoggedIn: true, 
+    isLoggedIn: true,
     isAdmin,
   });
 });
@@ -53,7 +52,7 @@ postRouter.get("/myPosts", authenticateJWT, async function (req, res, next) {
 // Route to render the edit post page for a specific post ID
 postRouter.get("/edit/:id", authenticateJWT, async function (req, res, next) {
   const id = req.params.id;
-    // Check if the post ID is provided
+  // Check if the post ID is provided
   if (!id) {
     return res.send("Post id is required");
   }
@@ -76,12 +75,12 @@ postRouter.get("/edit/:id", authenticateJWT, async function (req, res, next) {
 postRouter.post("/edit/:id", authenticateJWT, async function (req, res, next) {
   const id = req.params.id;
 
-    // Find the post by ID and update its content with the data from the request body
+  // Find the post by ID and update its content with the data from the request body
   const post = await Posts.findByIdAndUpdate(id, req.body);
   if (!post) {
     return res.send("Post not found");
   }
-    // Redirect the user to the 'myPosts' page after successfully updating the post
+  // Redirect the user to the 'myPosts' page after successfully updating the post
   return res.redirect("/post/myPosts");
 });
 
@@ -104,24 +103,23 @@ postRouter.delete("/:id", authenticateJWT, async function (req, res, next) {
 // Route to render the create post page
 postRouter.get("/create", authenticateJWT, function (req, res, next) {
   const isAdmin = req.user?.isAdmin;
-    // Render the 'createpost' view with the isAdmin flag indicating admin privileges
+  // Render the 'createpost' view with the isAdmin flag indicating admin privileges
   res.render("createpost", { isAdmin });
 });
 
-
 // Route to create a new post
 postRouter.post("/", authenticateJWT, async function (req, res, next) {
-  const userId = req.user.id;
-    // Extract post data from the request body
+  const userId = req.user?.id;
+  // Extract post data from the request body
   const post = req.body;
 
-    // Create a new post in the database associated with the authenticated user
+  // Create a new post in the database associated with the authenticated user
   const newPost = await Posts.create({ ...req.body, user: userId });
 
-    // Fetch all posts created by the authenticated user
+  // Fetch all posts created by the authenticated user
   const posts = await Posts.find({ user: userId });
 
-    // Redirect the user to the myPosts  after successfully creating the post
+  // Redirect the user to the myPosts  after successfully creating the post
   res.redirect("/post/myPosts");
 });
 
@@ -130,16 +128,16 @@ postRouter.post(
   "/:id/comment",
   authenticateJWT,
   async function (req, res, next) {
-      // Extract post ID from the request parameters
+    // Extract post ID from the request parameters
     const postId = req.params.id;
-      // Create a new comment 
+    // Create a new comment
     const comment = await Comment.create({
       ...req.body,
-      user: req.user.id,
+      user: req.user?.id,
       post: postId,
     });
 
-      // Redirect the user to the post detail page after successfully adding the comment
+    // Redirect the user to the post detail page after successfully adding the comment
     res.redirect(`/post/${postId}`);
   }
 );
@@ -150,7 +148,7 @@ postRouter.post(
   authenticateJWT,
   async function (req, res, next) {
     const commentId = req.params.id;
-      // Find the comment by ID and update its content with the data from the request body
+    // Find the comment by ID and update its content with the data from the request body
     const comment = await Comment.findByIdAndUpdate(commentId, req.body);
 
     if (!comment) {
@@ -168,8 +166,8 @@ postRouter.get(
   async function (req, res, next) {
     const commentId = req.params.id;
     const comment = await Comment.findById(commentId);
-      // Extract admin status from the authenticated user
-    const isAdmin = req.user.isAdmin;
+    // Extract admin status from the authenticated user
+    const isAdmin = req.user?.isAdmin;
 
     if (!comment) {
       return res.send("Comment not found");
@@ -185,13 +183,13 @@ postRouter.delete(
   async function (req, res, next) {
     const commentId = req.params.id;
 
-  // Find the comment by ID and delete it from the database
+    // Find the comment by ID and delete it from the database
     const comment = await Comment.findByIdAndDelete(commentId);
     if (!comment) {
       return res.send("Comment not found");
     }
-  // Send a simple success message indicating deletion of the comment
-  return res.status(200).json({
+    // Send a simple success message indicating deletion of the comment
+    return res.status(200).json({
       message: "Successfully deleted comment",
     });
   }
@@ -199,16 +197,16 @@ postRouter.delete(
 
 // Route to fetch details of a specific post
 postRouter.get("/:id", optionalTokenParser, async function (req, res, next) {
-    // Extract post ID from the request parameters
+  // Extract post ID from the request parameters
   const postId = req.params.id;
-    // Check if user is logged in by verifying the existence of req.user
+  // Check if user is logged in by verifying the existence of req.user
   const isLoggedIn = !!req.user;
-    // Check if the logged-in user is an admin by verifying req.user.isAdmin
+  // Check if the logged-in user is an admin by verifying req.user.isAdmin
   const isAdmin = !!req.user?.isAdmin;
 
-    // Find the post with the provided ID in the database and populate its user field
+  // Find the post with the provided ID in the database and populate its user field
   const post = await Posts.findById(postId).populate("user");
-    // Find all comments associated with the post and populate their user field
+  // Find all comments associated with the post and populate their user field
   const comments = await Comment.find({ post: postId })
     .sort("-createdAt")
     .populate("user");
@@ -216,13 +214,13 @@ postRouter.get("/:id", optionalTokenParser, async function (req, res, next) {
     return res.send("Post details not found");
   }
 
-    // Render the postDetail view with the fetched post details, user authentication status, and comments
+  // Render the postDetail view with the fetched post details, user authentication status, and comments
   return res.render("postDetail", {
     post,
     isAdmin,
     isLoggedIn,
     comments,
-    userId: req.user.id,
+    userId: req.user?.id,
   });
 });
 
